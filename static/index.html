@@ -1,0 +1,1029 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Secretaría Virtual · Eurocolegio Casvi</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/marked@14/marked.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/dompurify@3/dist/purify.min.js"></script>
+  <style>
+    :root {
+      --navy:         #0c2340;
+      --navy-mid:     #163354;
+      --navy-deep:    #081829;
+      --navy-subtle:  #1e3a5f;
+      --gold:         #b8893a;
+      --gold-bright:  #c4973c;
+      --gold-light:   #f5edd8;
+      --gold-subtle:  #faf6ee;
+      --cream:        #f8f7f4;
+      --white:        #ffffff;
+      --text:         #1a1a2e;
+      --muted:        #6b7280;
+      --muted-light:  #9ca3af;
+      --border:       #e8e4de;
+      --border-soft:  #f0ede8;
+      --shadow-sm:    rgba(12, 35, 64, 0.06);
+      --shadow:       rgba(12, 35, 64, 0.10);
+      --shadow-md:    rgba(12, 35, 64, 0.16);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Inter', -apple-system, sans-serif;
+      background: var(--cream);
+      color: var(--text);
+      height: 100dvh;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    /* ── HEADER ────────────────────────────────── */
+    header {
+      background: var(--navy-deep);
+      flex-shrink: 0;
+      box-shadow: 0 2px 32px rgba(0,0,0,0.32);
+      position: relative;
+      z-index: 10;
+    }
+
+    .header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.8rem 2.5rem;
+      max-width: 1440px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    .header-brand {
+      display: flex;
+      align-items: center;
+      gap: 1.1rem;
+    }
+
+    .casvi-wordmark {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      line-height: 1;
+    }
+
+    .casvi-wordmark-top {
+      font-size: 0.56rem;
+      color: var(--gold-bright);
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      font-weight: 500;
+    }
+
+    .casvi-wordmark-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.85rem;
+      font-weight: 600;
+      color: var(--white);
+      letter-spacing: 0.045em;
+      line-height: 1;
+    }
+
+    .casvi-wordmark-sub {
+      font-size: 0.5rem;
+      color: rgba(255,255,255,0.35);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      font-weight: 400;
+      margin-top: 0.15rem;
+    }
+
+    .header-sep {
+      width: 1px;
+      height: 30px;
+      background: rgba(255,255,255,0.1);
+    }
+
+    .header-service {
+      display: flex;
+      flex-direction: column;
+      gap: 0.1rem;
+    }
+
+    .header-service-label {
+      font-size: 0.56rem;
+      color: var(--gold-bright);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      font-weight: 500;
+    }
+
+    .header-service-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1rem;
+      color: rgba(255,255,255,0.85);
+      font-weight: 500;
+      letter-spacing: 0.04em;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+    }
+
+    .header-status {
+      display: flex;
+      align-items: center;
+      gap: 0.38rem;
+      font-size: 0.68rem;
+      color: rgba(255,255,255,0.38);
+      letter-spacing: 0.05em;
+    }
+
+    .status-dot {
+      width: 6px;
+      height: 6px;
+      background: #4ade80;
+      border-radius: 50%;
+      animation: pulse-green 2.5s infinite;
+    }
+
+    @keyframes pulse-green {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.45; }
+    }
+
+    .header-link {
+      color: rgba(255,255,255,0.32);
+      text-decoration: none;
+      font-size: 0.68rem;
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+    .header-link:hover { color: var(--gold-bright); }
+
+    .gold-bar {
+      height: 1.5px;
+      background: linear-gradient(90deg, transparent 0%, var(--gold) 25%, var(--gold-bright) 50%, var(--gold) 75%, transparent 100%);
+      opacity: 0.45;
+    }
+
+    /* ── MAIN ────────────────────────────────────── */
+    main {
+      flex: 1;
+      max-width: 1440px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 1.75rem 2.5rem 0;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    /* ── CHAT ────────────────────────────────────── */
+    #chat {
+      flex: 1;
+      overflow-y: auto;
+      padding-bottom: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+      scroll-behavior: smooth;
+    }
+
+    #chat::-webkit-scrollbar { width: 4px; }
+    #chat::-webkit-scrollbar-track { background: transparent; }
+    #chat::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+
+    /* ── MESSAGES ────────────────────────────────── */
+    .message {
+      display: flex;
+      flex-direction: column;
+      gap: 0.55rem;
+      animation: fadeUp 0.22s ease-out;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(8px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .message-row {
+      display: flex;
+      gap: 0.85rem;
+      align-items: flex-start;
+    }
+
+    .message.user { align-items: flex-end; }
+    .message.user .message-row { flex-direction: row-reverse; }
+
+    .avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-size: 0.85rem;
+    }
+
+    .message.bot .avatar {
+      background: var(--navy);
+      border: 1.5px solid rgba(184,137,58,0.5);
+      color: var(--gold-bright);
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1rem;
+    }
+
+    .message.user .avatar {
+      background: var(--navy-subtle);
+      color: rgba(255,255,255,0.6);
+      font-size: 0.62rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+    }
+
+    .bubble {
+      max-width: 72%;
+      padding: 1.05rem 1.4rem;
+      line-height: 1.74;
+      font-size: 0.925rem;
+      word-wrap: break-word;
+    }
+
+    .message.bot .bubble {
+      background: var(--white);
+      border: 1px solid var(--border-soft);
+      box-shadow: 0 2px 18px var(--shadow-sm);
+      border-radius: 4px 18px 18px 18px;
+      color: var(--text);
+    }
+
+    .message.user .bubble {
+      background: var(--navy);
+      color: var(--white);
+      border-radius: 18px 4px 18px 18px;
+      white-space: pre-wrap;
+      opacity: 0.95;
+    }
+
+    /* ── MARKDOWN RENDERED ───────────────────────── */
+    .bubble.md p { margin-bottom: 0.65rem; }
+    .bubble.md p:last-child { margin-bottom: 0; }
+
+    .bubble.md ul, .bubble.md ol {
+      padding-left: 1.35rem;
+      margin: 0.5rem 0 0.65rem;
+    }
+    .bubble.md li { margin-bottom: 0.28rem; line-height: 1.65; }
+
+    .bubble.md h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.4rem;
+      color: var(--navy);
+      margin: 0.9rem 0 0.45rem;
+      line-height: 1.25;
+    }
+    .bubble.md h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.18rem;
+      color: var(--navy);
+      margin: 0.75rem 0 0.38rem;
+      line-height: 1.3;
+    }
+    .bubble.md h3 {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--navy-mid);
+      margin: 0.65rem 0 0.3rem;
+    }
+
+    .bubble.md strong { color: var(--navy); font-weight: 600; }
+    .bubble.md em { font-style: italic; color: var(--muted); }
+
+    .bubble.md a {
+      color: var(--gold-bright);
+      text-decoration: underline;
+      text-underline-offset: 2px;
+    }
+
+    .bubble.md code {
+      background: var(--gold-subtle);
+      border: 1px solid rgba(184,137,58,0.2);
+      padding: 0.1em 0.38em;
+      border-radius: 4px;
+      font-size: 0.84em;
+      font-family: 'Fira Code', 'Consolas', monospace;
+      color: var(--navy);
+    }
+
+    .bubble.md pre {
+      background: var(--navy-deep);
+      color: rgba(255,255,255,0.88);
+      border-radius: 10px;
+      padding: 1rem 1.25rem;
+      overflow-x: auto;
+      margin: 0.65rem 0;
+    }
+    .bubble.md pre code {
+      background: none;
+      border: none;
+      padding: 0;
+      color: inherit;
+      font-size: 0.87em;
+    }
+
+    .bubble.md table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 0.7rem 0;
+      font-size: 0.87rem;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    .bubble.md th {
+      background: var(--navy);
+      color: var(--white);
+      padding: 0.55rem 0.85rem;
+      text-align: left;
+      font-weight: 500;
+      font-size: 0.8rem;
+      letter-spacing: 0.04em;
+    }
+    .bubble.md td {
+      padding: 0.48rem 0.85rem;
+      border-bottom: 1px solid var(--border-soft);
+      color: var(--text);
+    }
+    .bubble.md tr:last-child td { border-bottom: none; }
+    .bubble.md tr:nth-child(even) td { background: var(--cream); }
+
+    .bubble.md blockquote {
+      border-left: 3px solid var(--gold);
+      padding: 0.4rem 0 0.4rem 1rem;
+      color: var(--muted);
+      margin: 0.6rem 0;
+      font-style: italic;
+    }
+
+    /* ── STREAMING ───────────────────────────────── */
+    .generating-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      font-size: 0.68rem;
+      color: var(--gold-bright);
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+      font-weight: 500;
+      margin-bottom: 0.5rem;
+    }
+
+    .generating-badge::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      background: var(--gold-bright);
+      border-radius: 50%;
+      animation: pulse-gold 1.1s ease-in-out infinite;
+    }
+
+    @keyframes pulse-gold {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50%       { opacity: 0.35; transform: scale(0.75); }
+    }
+
+    .stream-text { white-space: pre-wrap; }
+
+    .stream-cursor {
+      display: inline-block;
+      width: 2px;
+      height: 0.95em;
+      background: var(--gold-bright);
+      vertical-align: middle;
+      margin-left: 2px;
+      border-radius: 1px;
+      animation: blink 0.75s step-end infinite;
+    }
+    @keyframes blink {
+      0%, 49% { opacity: 1; }
+      50%, 100%{ opacity: 0; }
+    }
+
+    /* ── TYPING DOTS ─────────────────────────────── */
+    .typing-dots {
+      display: inline-flex;
+      gap: 5px;
+      align-items: center;
+      padding: 0.2rem 0;
+    }
+    .typing-dots span {
+      width: 7px;
+      height: 7px;
+      background: #d1d5db;
+      border-radius: 50%;
+      animation: tdot 1.3s infinite ease-in-out;
+    }
+    .typing-dots span:nth-child(2) { animation-delay: 0.18s; }
+    .typing-dots span:nth-child(3) { animation-delay: 0.36s; }
+
+    @keyframes tdot {
+      0%, 60%, 100% { transform: translateY(0); opacity: 0.45; }
+      30% { transform: translateY(-6px); opacity: 1; }
+    }
+
+    /* ── SOURCES ─────────────────────────────────── */
+    .sources-wrapper {
+      margin-left: calc(36px + 0.85rem);
+    }
+
+    .sources-toggle {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.35rem 0.8rem 0.35rem 0.6rem;
+      background: var(--gold-subtle);
+      border: 1px solid rgba(184,137,58,0.22);
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 0.68rem;
+      font-weight: 600;
+      color: var(--navy-mid);
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      user-select: none;
+      transition: background 0.18s, border-color 0.18s;
+    }
+    .sources-toggle:hover {
+      background: var(--gold-light);
+      border-color: rgba(184,137,58,0.38);
+    }
+
+    .toggle-chevron {
+      font-size: 0.75rem;
+      color: var(--gold);
+      transition: transform 0.2s;
+      line-height: 1;
+    }
+    .sources-toggle.open .toggle-chevron { transform: rotate(90deg); }
+
+    .sources-count {
+      background: var(--navy);
+      color: var(--gold-bright);
+      font-size: 0.6rem;
+      font-weight: 700;
+      padding: 0.08em 0.42em;
+      border-radius: 10px;
+      letter-spacing: 0;
+      line-height: 1.4;
+    }
+
+    .sources-list {
+      display: none;
+      margin-top: 0.5rem;
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--gold);
+      border-radius: 0 8px 8px 0;
+      overflow: hidden;
+      background: var(--white);
+    }
+    .sources-list.open { display: block; }
+
+    .source-item {
+      padding: 0.8rem 1.1rem;
+      border-top: 1px solid var(--border-soft);
+    }
+    .source-item:first-child { border-top: none; }
+
+    .source-item-meta {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 0.32rem;
+    }
+
+    .source-name {
+      font-size: 0.69rem;
+      font-weight: 700;
+      color: var(--navy);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .source-relevance {
+      font-size: 0.63rem;
+      color: var(--gold-bright);
+      font-weight: 600;
+      padding: 0.08em 0.45em;
+      background: var(--gold-subtle);
+      border: 1px solid rgba(184,137,58,0.18);
+      border-radius: 10px;
+    }
+
+    .source-excerpt {
+      font-size: 0.8rem;
+      color: var(--muted);
+      line-height: 1.58;
+    }
+
+    /* ── SUGGESTIONS ─────────────────────────────── */
+    .suggestions-area {
+      flex-shrink: 0;
+      margin-bottom: 1.1rem;
+    }
+
+    .suggestions-label {
+      font-size: 0.62rem;
+      color: var(--muted-light);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      font-weight: 500;
+      margin-bottom: 0.55rem;
+    }
+
+    .suggestions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.45rem;
+    }
+
+    .chip {
+      background: var(--white);
+      border: 1px solid var(--border);
+      color: var(--navy-mid);
+      padding: 0.46rem 1rem;
+      border-radius: 24px;
+      cursor: pointer;
+      font-size: 0.79rem;
+      font-weight: 500;
+      transition: all 0.18s;
+      letter-spacing: 0.01em;
+      box-shadow: 0 1px 5px var(--shadow-sm);
+      white-space: nowrap;
+    }
+    .chip:hover {
+      border-color: var(--gold);
+      background: var(--gold-light);
+      box-shadow: 0 2px 10px var(--shadow);
+      color: var(--navy);
+    }
+
+    /* ── INPUT ───────────────────────────────────── */
+    .input-bar {
+      flex-shrink: 0;
+      padding: 0.9rem 0 1.35rem;
+      border-top: 1px solid var(--border-soft);
+    }
+
+    #ask-form {
+      display: flex;
+      gap: 0.5rem;
+      background: var(--white);
+      border: 1.5px solid var(--border);
+      border-radius: 16px;
+      padding: 0.35rem 0.35rem 0.35rem 1.3rem;
+      box-shadow: 0 2px 22px var(--shadow-sm);
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    #ask-form:focus-within {
+      border-color: var(--gold);
+      box-shadow: 0 2px 24px rgba(184,137,58,0.16);
+    }
+
+    input[type="text"] {
+      flex: 1;
+      border: none;
+      outline: none;
+      font-size: 0.935rem;
+      font-family: 'Inter', sans-serif;
+      color: var(--text);
+      background: transparent;
+      padding: 0.6rem 0;
+    }
+    input[type="text"]::placeholder { color: #c5cad4; }
+
+    .send-btn {
+      width: 46px;
+      height: 46px;
+      background: var(--navy);
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.18s, transform 0.1s;
+      flex-shrink: 0;
+    }
+    .send-btn:hover:not(:disabled) { background: var(--navy-mid); }
+    .send-btn:active:not(:disabled) { transform: scale(0.93); }
+    .send-btn:disabled { opacity: 0.32; cursor: not-allowed; }
+    .send-btn svg { width: 18px; height: 18px; fill: white; }
+
+    /* ── RESPONSIVE ──────────────────────────────── */
+    @media (max-width: 1100px) {
+      main { padding: 1.5rem 1.75rem 0; }
+    }
+
+    @media (max-width: 768px) {
+      .header-inner { padding: 0.75rem 1.25rem; }
+      .casvi-wordmark-name { font-size: 1.55rem; }
+      .header-status, .header-service { display: none; }
+      main { padding: 1.1rem 1.25rem 0; }
+      .bubble { max-width: 84%; font-size: 0.89rem; }
+      .suggestions { flex-wrap: nowrap; overflow-x: auto; padding-bottom: 0.25rem; }
+      .suggestions::-webkit-scrollbar { display: none; }
+    }
+
+    @media (max-width: 480px) {
+      .header-inner { padding: 0.65rem 1rem; }
+      .casvi-wordmark-sub { display: none; }
+      main { padding: 0.85rem 1rem 0; }
+      .bubble { max-width: 90%; }
+      .sources-wrapper { margin-left: 0; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="header-inner">
+      <div class="header-brand">
+        <div class="casvi-wordmark">
+          <span class="casvi-wordmark-top">Eurocolegio</span>
+          <span class="casvi-wordmark-name">Casvi</span>
+          <span class="casvi-wordmark-sub">Castillo de Villaviciosa · Madrid</span>
+        </div>
+        <div class="header-sep"></div>
+        <div class="header-service">
+          <span class="header-service-label">Servicio de atención</span>
+          <span class="header-service-name">Secretaría Virtual</span>
+        </div>
+      </div>
+      <div class="header-actions">
+        <div class="header-status">
+          <div class="status-dot"></div>
+          <span>Disponible</span>
+        </div>
+        <a href="/admin" class="header-link">Administración</a>
+      </div>
+    </div>
+    <div class="gold-bar"></div>
+  </header>
+
+  <main>
+    <div id="chat">
+      <div class="message bot">
+        <div class="message-row">
+          <div class="avatar">✦</div>
+          <div class="bubble md">
+            <p>Bienvenido al Eurocolegio Casvi. Soy la secretaría virtual del centro y estoy aquí para atender sus consultas sobre admisión, matrícula, horarios, servicios y actividades del colegio.</p>
+            <p>¿En qué puedo ayudarle hoy?</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="suggestions-area" id="suggestions-area">
+      <div class="suggestions-label" id="suggestions-label">Consultas frecuentes</div>
+      <div class="suggestions" id="suggestions"></div>
+    </div>
+
+    <div class="input-bar">
+      <form id="ask-form">
+        <input
+          type="text"
+          id="question"
+          placeholder="¿En qué podemos ayudarle?"
+          autocomplete="off"
+          required
+        />
+        <button type="submit" class="send-btn" id="submit-btn" title="Enviar consulta">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/>
+          </svg>
+        </button>
+      </form>
+    </div>
+  </main>
+
+  <script>
+    // ── MARKED CONFIGURATION ─────────────────────────────────────────────────
+    marked.use({ breaks: true, gfm: true });
+
+    function renderMd(text) {
+      return DOMPurify.sanitize(marked.parse(text || ""));
+    }
+
+    // ── DOM REFS ─────────────────────────────────────────────────────────────
+    const chat            = document.getElementById("chat");
+    const form            = document.getElementById("ask-form");
+    const input           = document.getElementById("question");
+    const submitBtn       = document.getElementById("submit-btn");
+    const suggestionsArea = document.getElementById("suggestions-area");
+    const suggestionsEl   = document.getElementById("suggestions");
+    const suggestionsLbl  = document.getElementById("suggestions-label");
+
+    // ── SUGGESTION DATA ──────────────────────────────────────────────────────
+    const INITIAL_SUGGESTIONS = [
+      "Proceso de admisión",
+      "Horario de secretaría",
+      "Actividades extraescolares",
+      "Ruta escolar",
+      "Comedor y menú",
+      "Calendario escolar",
+      "Uniforme del colegio",
+      "Programa Bachillerato Internacional",
+    ];
+
+    const TOPIC_SUGGESTIONS = {
+      admision: [
+        "¿Cuáles son los requisitos de admisión?",
+        "¿Cuándo se abre el plazo de matriculación?",
+        "¿Hay jornadas de puertas abiertas?",
+        "¿Qué documentación necesito para matricular a mi hijo?",
+      ],
+      horario: [
+        "¿Cuál es el horario del comedor?",
+        "¿Qué actividades hay por las tardes?",
+        "¿A qué hora finaliza la jornada escolar?",
+        "¿Hay servicio de acogida temprana?",
+      ],
+      extraescolar: [
+        "¿Qué deportes se ofrecen como extraescolar?",
+        "¿Hay actividades de idiomas o música?",
+        "¿Cuándo comienzan las actividades extraescolares?",
+        "¿Cuál es el coste de las extraescolares?",
+      ],
+      comedor: [
+        "¿Cómo puedo consultar el menú semanal?",
+        "¿Hay opciones para alergias alimentarias?",
+        "¿Cuál es el precio del servicio de comedor?",
+        "¿Se puede contratar el comedor puntualmente?",
+      ],
+      transporte: [
+        "¿Qué rutas de autobús escolar están disponibles?",
+        "¿Cuál es el coste de la ruta escolar?",
+        "¿Cómo me apunto al servicio de transporte?",
+        "¿El autobús escolar cubre mi zona?",
+      ],
+      uniforme: [
+        "¿Dónde se puede adquirir el uniforme?",
+        "¿Es obligatorio el uniforme todos los días?",
+        "¿Hay uniforme específico para educación física?",
+        "¿Existe uniforme de verano?",
+      ],
+      ib: [
+        "¿Qué es el Bachillerato Internacional?",
+        "¿A partir de qué curso se puede cursar el IB?",
+        "¿Qué ventajas ofrece el diploma IB para la universidad?",
+        "¿Hay preparación especial para el IB?",
+      ],
+      general: [
+        "¿Cuáles son las cuotas del colegio?",
+        "¿Hay becas o ayudas disponibles?",
+        "¿Cómo contacto con el tutor de mi hijo?",
+        "¿Qué etapas educativas ofrece el colegio?",
+      ],
+    };
+
+    function detectTopic(text) {
+      const t = text.toLowerCase();
+      if (/admisi[oó]n|matr[ií]cula|inscripci[oó]n|plaza|ingreso|puertas abiertas/.test(t)) return "admision";
+      if (/horario|hora|jornada|apertura|acogida/.test(t)) return "horario";
+      if (/extracurricular|extraescolar|actividad|deporte|taller|club/.test(t)) return "extraescolar";
+      if (/comedor|almuerzo|men[uú]|comida|comer|dieta|alergia/.test(t)) return "comedor";
+      if (/ruta|transporte|autob[uú]s|bus|recorrido/.test(t)) return "transporte";
+      if (/uniforme|ropa|vestimenta|chandal/.test(t)) return "uniforme";
+      if (/ib|bachillerato internacional|diploma|internacional/.test(t)) return "ib";
+      return "general";
+    }
+
+    function setSuggestions(chips, label) {
+      if (label) suggestionsLbl.textContent = label;
+      suggestionsEl.innerHTML = "";
+      chips.forEach(text => {
+        const chip = document.createElement("div");
+        chip.className = "chip";
+        chip.textContent = text;
+        chip.addEventListener("click", () => {
+          input.value = text;
+          form.requestSubmit();
+        });
+        suggestionsEl.appendChild(chip);
+      });
+      suggestionsArea.style.display = "";
+    }
+
+    setSuggestions(INITIAL_SUGGESTIONS, "Consultas frecuentes");
+
+    // ── CHAT HELPERS ─────────────────────────────────────────────────────────
+    function addMessage(role, contentOrNode) {
+      const wrap = document.createElement("div");
+      wrap.className = `message ${role}`;
+
+      const row = document.createElement("div");
+      row.className = "message-row";
+
+      const avatar = document.createElement("div");
+      avatar.className = "avatar";
+      avatar.textContent = role === "bot" ? "✦" : "Yo";
+
+      const bubble = document.createElement("div");
+      bubble.className = "bubble";
+
+      if (typeof contentOrNode === "string") {
+        bubble.textContent = contentOrNode;
+      } else {
+        bubble.appendChild(contentOrNode);
+      }
+
+      row.appendChild(avatar);
+      row.appendChild(bubble);
+      wrap.appendChild(row);
+      chat.appendChild(wrap);
+      chat.scrollTop = chat.scrollHeight;
+      return { wrap, bubble };
+    }
+
+    function makeTypingDots() {
+      const el = document.createElement("div");
+      el.className = "typing-dots";
+      for (let i = 0; i < 3; i++) el.appendChild(document.createElement("span"));
+      return el;
+    }
+
+    function addSources(messageWrap, sources) {
+      if (!sources || sources.length === 0) return;
+
+      const wrapper = document.createElement("div");
+      wrapper.className = "sources-wrapper";
+
+      const toggle = document.createElement("div");
+      toggle.className = "sources-toggle";
+      toggle.innerHTML = `
+        <span class="toggle-chevron">›</span>
+        <span>Fuentes consultadas</span>
+        <span class="sources-count">${sources.length}</span>
+      `;
+
+      const list = document.createElement("div");
+      list.className = "sources-list";
+
+      sources.forEach(s => {
+        const item = document.createElement("div");
+        item.className = "source-item";
+        const pct = Math.round((s.similarity || 0) * 100);
+        item.innerHTML = `
+          <div class="source-item-meta">
+            <span class="source-name">${escapeHtml(s.source)}</span>
+            <span class="source-relevance">${pct}% relevancia</span>
+          </div>
+          <div class="source-excerpt">${escapeHtml(s.excerpt)}</div>
+        `;
+        list.appendChild(item);
+      });
+
+      toggle.addEventListener("click", () => {
+        const open = list.classList.toggle("open");
+        toggle.classList.toggle("open", open);
+      });
+
+      wrapper.appendChild(toggle);
+      wrapper.appendChild(list);
+      messageWrap.appendChild(wrapper);
+    }
+
+    function escapeHtml(str) {
+      return String(str)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;");
+    }
+
+    // ── FORM SUBMISSION WITH STREAMING ───────────────────────────────────────
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const question = input.value.trim();
+      if (!question) return;
+
+      suggestionsArea.style.display = "none";
+      addMessage("user", question);
+      input.value = "";
+      submitBtn.disabled = true;
+
+      const { wrap: botWrap, bubble: typingBubble } = addMessage("bot", makeTypingDots());
+
+      let accumulated    = "";
+      let streamStarted  = false;
+      let streamTextEl   = null;
+      let pendingSources = null;
+
+      try {
+        const res = await fetch("/api/ask/stream", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ question }),
+        });
+
+        if (!res.ok) throw new Error(`Error del servidor (${res.status})`);
+        if (!res.body) throw new Error("El navegador no soporta streaming");
+
+        const reader  = res.body.getReader();
+        const decoder = new TextDecoder();
+        let buffer    = "";
+
+        while (true) {
+          const { value, done } = await reader.read();
+          if (done) break;
+
+          buffer += decoder.decode(value, { stream: true });
+          const lines = buffer.split("\n");
+          buffer = lines.pop(); // retain incomplete last line
+
+          for (const line of lines) {
+            if (!line.startsWith("data: ")) continue;
+            const raw = line.slice(6).trim();
+            if (!raw) continue;
+
+            let event;
+            try { event = JSON.parse(raw); } catch { continue; }
+
+            if (event.type === "token") {
+              if (!streamStarted) {
+                streamStarted = true;
+                typingBubble.innerHTML = "";
+
+                const badge = document.createElement("div");
+                badge.className = "generating-badge";
+                badge.textContent = "Generando respuesta";
+                typingBubble.appendChild(badge);
+
+                streamTextEl = document.createElement("div");
+                streamTextEl.className = "stream-text";
+                typingBubble.appendChild(streamTextEl);
+
+                const cursor = document.createElement("span");
+                cursor.className = "stream-cursor";
+                typingBubble.appendChild(cursor);
+              }
+
+              accumulated += event.content;
+              streamTextEl.textContent = accumulated;
+              chat.scrollTop = chat.scrollHeight;
+
+            } else if (event.type === "sources") {
+              pendingSources = event.sources;
+
+            } else if (event.type === "error") {
+              accumulated = event.content || "Ha ocurrido un error inesperado.";
+
+            } else if (event.type === "done") {
+              typingBubble.innerHTML = "";
+              typingBubble.classList.add("md");
+              typingBubble.innerHTML = renderMd(
+                accumulated ||
+                "No ha sido posible generar una respuesta en este momento. Por favor, inténtelo de nuevo o contacte con la secretaría del centro."
+              );
+
+              if (pendingSources && pendingSources.length > 0) {
+                addSources(botWrap, pendingSources);
+              }
+
+              const topic = detectTopic(question);
+              setSuggestions(
+                TOPIC_SUGGESTIONS[topic] || TOPIC_SUGGESTIONS.general,
+                "Consultas relacionadas"
+              );
+
+              chat.scrollTop = chat.scrollHeight;
+            }
+          }
+        }
+
+      } catch {
+        typingBubble.innerHTML = "";
+        typingBubble.classList.add("md");
+        typingBubble.innerHTML = renderMd(
+          "Ha ocurrido un error de conexión. Por favor, inténtelo de nuevo en un momento.\n\n" +
+          "Si el problema persiste, puede contactar con secretaría en **info@casviboadilla.es** o en el teléfono **(+34) 91 632 96 53**."
+        );
+        setSuggestions(INITIAL_SUGGESTIONS, "Consultas frecuentes");
+
+      } finally {
+        submitBtn.disabled = false;
+        input.focus();
+        chat.scrollTop = chat.scrollHeight;
+      }
+    });
+  </script>
+</body>
+</html>

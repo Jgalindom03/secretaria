@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Administración · Colegio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --navy:          #0c2340;
+      --navy-mid:      #163354;
+      --gold:          #c4973c;
+      --gold-light:    #f5edd8;
+      --cream:         #faf9f6;
+      --white:         #ffffff;
+      --text:          #1a1a2e;
+      --muted:         #6b7280;
+      --border:        #e8e4de;
+      --shadow:        rgba(12, 35, 64, 0.08);
+      --danger:        #991b1b;
+      --danger-bg:     #fef2f2;
+      --danger-border: #fecaca;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Inter', -apple-system, sans-serif;
+      background: var(--cream);
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    /* ── HEADER ── */
+    header {
+      background: var(--navy);
+      box-shadow: 0 2px 24px rgba(0,0,0,0.25);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    .header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.9rem 2rem;
+      max-width: 780px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    .header-brand {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+    }
+
+    .header-emblem {
+      width: 36px;
+      height: 36px;
+      border: 1.5px solid var(--gold);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--gold);
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1rem;
+      font-weight: 600;
+      flex-shrink: 0;
+    }
+
+    .header-text h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.18rem;
+      font-weight: 600;
+      color: var(--white);
+      letter-spacing: 0.04em;
+      line-height: 1.15;
+    }
+
+    .header-text p {
+      font-size: 0.67rem;
+      color: var(--gold);
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      font-weight: 500;
+    }
+
+    .header-link {
+      color: rgba(255,255,255,0.45);
+      text-decoration: none;
+      font-size: 0.75rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+    .header-link:hover { color: var(--gold); }
+
+    .gold-bar {
+      height: 2px;
+      background: linear-gradient(90deg, transparent 0%, var(--gold) 40%, var(--gold) 60%, transparent 100%);
+      opacity: 0.7;
+    }
+
+    /* ── LAYOUT ── */
+    main {
+      max-width: 780px;
+      margin: 2.5rem auto;
+      padding: 0 1.5rem 4rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    /* ── SECTION LABEL ── */
+    .section-label {
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 0.75rem;
+    }
+
+    /* ── CARD ── */
+    .card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 1.75rem 2rem;
+      box-shadow: 0 2px 18px var(--shadow);
+    }
+
+    .card-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: var(--navy);
+      letter-spacing: 0.025em;
+      margin-bottom: 0.3rem;
+    }
+
+    .card-desc {
+      font-size: 0.84rem;
+      color: var(--muted);
+      line-height: 1.65;
+      margin-bottom: 1.4rem;
+    }
+
+    /* ── STATS ── */
+    .stat-grid { display: flex; gap: 1rem; }
+
+    .stat {
+      flex: 1;
+      background: var(--gold-light);
+      border: 1px solid rgba(196, 151, 60, 0.25);
+      border-radius: 10px;
+      padding: 1.1rem;
+      text-align: center;
+    }
+
+    .stat .num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.5rem;
+      font-weight: 600;
+      color: var(--navy);
+      line-height: 1;
+      display: block;
+    }
+
+    .stat .label {
+      font-size: 0.7rem;
+      color: var(--muted);
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      margin-top: 0.45rem;
+      display: block;
+    }
+
+    /* ── DROP ZONE ── */
+    .drop {
+      border: 2px dashed var(--border);
+      border-radius: 12px;
+      padding: 2.5rem 2rem;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: block;
+    }
+    .drop:hover, .drop.drag {
+      border-color: var(--gold);
+      background: var(--gold-light);
+    }
+    .drop input { display: none; }
+
+    .drop-icon { font-size: 2.2rem; display: block; margin-bottom: 0.7rem; }
+
+    .drop-title {
+      font-size: 0.93rem;
+      font-weight: 600;
+      color: var(--navy);
+      margin-bottom: 0.35rem;
+    }
+
+    .drop-sub { font-size: 0.78rem; color: var(--muted); }
+
+    /* ── BUTTONS ── */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      padding: 0.65rem 1.3rem;
+      border-radius: 8px;
+      font-size: 0.86rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      letter-spacing: 0.025em;
+      font-family: 'Inter', sans-serif;
+      border: none;
+    }
+
+    .btn-primary {
+      background: var(--navy);
+      color: var(--white);
+    }
+    .btn-primary:hover:not(:disabled) { background: var(--navy-mid); }
+
+    .btn-danger {
+      background: transparent;
+      color: var(--danger);
+      border: 1.5px solid var(--danger-border);
+    }
+    .btn-danger:hover:not(:disabled) { background: var(--danger-bg); }
+
+    .btn:disabled { opacity: 0.45; cursor: not-allowed; }
+
+    /* ── STATUS ── */
+    .status {
+      display: none;
+      align-items: flex-start;
+      gap: 0.5rem;
+      margin-top: 1rem;
+      padding: 0.85rem 1rem;
+      border-radius: 8px;
+      font-size: 0.84rem;
+      line-height: 1.55;
+    }
+    .status.visible { display: flex; }
+
+    .status.ok {
+      background: #f0fdf4;
+      color: #166534;
+      border: 1px solid #bbf7d0;
+    }
+
+    .status.err {
+      background: var(--danger-bg);
+      color: var(--danger);
+      border: 1px solid var(--danger-border);
+    }
+
+    .status.loading {
+      background: var(--gold-light);
+      color: var(--navy);
+      border: 1px solid rgba(196, 151, 60, 0.3);
+    }
+
+    /* ── DANGER CARD ── */
+    .card.danger-card {
+      border-color: var(--danger-border);
+      background: var(--danger-bg);
+    }
+
+    .danger-card .card-title { color: var(--danger); }
+    .danger-card .section-label { color: var(--danger); opacity: 0.75; }
+    .danger-card .card-desc { color: #7f1d1d; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 600px) {
+      .header-inner { padding: 0.8rem 1rem; }
+      main { margin: 1.5rem auto; padding: 0 1rem 2.5rem; gap: 1.25rem; }
+      .card { padding: 1.25rem; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-inner">
+      <div class="header-brand">
+        <div class="header-emblem">✦</div>
+        <div class="header-text">
+          <h1>Colegio</h1>
+          <p>Panel de Administración</p>
+        </div>
+      </div>
+      <a href="/" class="header-link">← Volver al asistente</a>
+    </div>
+    <div class="gold-bar"></div>
+  </header>
+
+  <main>
+    <!-- ESTADO -->
+    <div class="card">
+      <div class="section-label">Estado del sistema</div>
+      <div class="card-title">Base de conocimiento</div>
+      <div class="card-desc">
+        Información indexada que el asistente consulta para responder preguntas.
+        Cada fragmento corresponde a un extracto del documento original.
+      </div>
+      <div class="stat-grid">
+        <div class="stat">
+          <span class="num" id="chunks">—</span>
+          <span class="label">Fragmentos indexados</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- SUBIR DOCUMENTO -->
+    <div class="card">
+      <div class="section-label">Gestión documental</div>
+      <div class="card-title">Subir documento</div>
+      <div class="card-desc">
+        Formatos aceptados: <strong>PDF, DOCX, TXT, MD</strong>.
+        Puede subir varios documentos; se acumulan en la base de conocimiento.
+      </div>
+      <label class="drop" id="drop">
+        <input type="file" id="file-input" accept=".pdf,.docx,.txt,.md" />
+        <span class="drop-icon">📄</span>
+        <div class="drop-title" id="drop-text">Haga clic o arrastre un archivo aquí</div>
+        <div class="drop-sub">PDF, DOCX, TXT o Markdown</div>
+      </label>
+      <div id="upload-status" class="status"></div>
+    </div>
+
+    <!-- ZONA DE RIESGO -->
+    <div class="card danger-card">
+      <div class="section-label">Zona de riesgo</div>
+      <div class="card-title">Restablecer base de conocimiento</div>
+      <div class="card-desc">
+        Esta acción eliminará permanentemente todos los documentos indexados.
+        El asistente dejará de poder responder hasta que se suban nuevos documentos.
+      </div>
+      <button class="btn btn-danger" id="reset-btn">Eliminar toda la base de conocimiento</button>
+      <div id="reset-status" class="status"></div>
+    </div>
+  </main>
+
+  <script>
+    const drop         = document.getElementById("drop");
+    const fileInput    = document.getElementById("file-input");
+    const dropText     = document.getElementById("drop-text");
+    const uploadStatus = document.getElementById("upload-status");
+    const resetBtn     = document.getElementById("reset-btn");
+    const resetStatus  = document.getElementById("reset-status");
+    const chunksEl     = document.getElementById("chunks");
+
+    function setStatus(el, type, text) {
+      el.className = `status ${type} visible`;
+      el.textContent = text;
+    }
+
+    async function refreshHealth() {
+      try {
+        const res  = await fetch("/api/health");
+        const data = await res.json();
+        chunksEl.textContent = data.chunks_indexed;
+      } catch {
+        chunksEl.textContent = "—";
+      }
+    }
+    refreshHealth();
+
+    ["dragenter", "dragover"].forEach(evt =>
+      drop.addEventListener(evt, e => { e.preventDefault(); drop.classList.add("drag"); })
+    );
+    ["dragleave", "drop"].forEach(evt =>
+      drop.addEventListener(evt, e => { e.preventDefault(); drop.classList.remove("drag"); })
+    );
+    drop.addEventListener("drop", e => {
+      const file = e.dataTransfer.files[0];
+      if (file) uploadFile(file);
+    });
+    fileInput.addEventListener("change", () => {
+      if (fileInput.files[0]) uploadFile(fileInput.files[0]);
+    });
+
+    async function uploadFile(file) {
+      setStatus(uploadStatus, "loading", `Procesando "${file.name}"... esto puede tardar unos segundos.`);
+      dropText.textContent = file.name;
+
+      const formData = new FormData();
+      formData.append("file", file);
+
+      try {
+        const res  = await fetch("/api/ingest", { method: "POST", body: formData });
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.detail || "Error al subir el archivo");
+        setStatus(
+          uploadStatus, "ok",
+          `"${data.source}" procesado correctamente: ${data.chunks_added} fragmentos añadidos. ` +
+          `Total en la base: ${data.total_in_collection}.`
+        );
+        refreshHealth();
+      } catch (err) {
+        setStatus(uploadStatus, "err", err.message);
+      }
+    }
+
+    resetBtn.addEventListener("click", async () => {
+      if (!confirm("¿Confirma que desea eliminar todos los documentos indexados?\nEsta acción no puede deshacerse.")) return;
+      setStatus(resetStatus, "loading", "Eliminando la base de conocimiento...");
+      try {
+        const res = await fetch("/api/reset", { method: "POST" });
+        if (!res.ok) throw new Error("Error al restablecer la base de conocimiento");
+        setStatus(resetStatus, "ok", "Base de conocimiento eliminada correctamente.");
+        refreshHealth();
+      } catch (err) {
+        setStatus(resetStatus, "err", err.message);
+      }
+    });
+  </script>
+</body>
+</html>
